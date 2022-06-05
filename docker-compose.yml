@@ -1,0 +1,22 @@
+version: '3'
+services:
+
+  dns:
+    build: .
+    image: dns-image
+    container_name: dns-server
+    networks:
+      derav-network:
+        ipv4_address: 172.20.0.2
+    volumes: 
+      - ./dns-files/:/etc/bind/zones/
+    ports:
+      - 53:53
+
+
+networks:
+  derav-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.20.0.0/16"
